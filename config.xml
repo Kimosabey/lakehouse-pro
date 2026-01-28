@@ -1,0 +1,13 @@
+<clickhouse>
+    <http_options>
+        <enable_response_content_type>1</enable_response_content_type>
+        <receive_timeout>30</receive_timeout>
+        <send_timeout>30</send_timeout>
+        <headers>
+             <Access-Control-Allow-Origin>*</Access-Control-Allow-Origin>
+             <Access-Control-Allow-Headers>*</Access-Control-Allow-Headers>
+             <Access-Control-Allow-Methods>POST, GET, OPTIONS</Access-Control-Allow-Methods>
+             <Access-Control-Max-Age>86400</Access-Control-Max-Age>
+        </headers>
+    </http_options>
+</clickhouse>
