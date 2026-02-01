@@ -1,121 +1,97 @@
-# 🚀 Lakehouse Pro
+# Lakehouse Pro
 
-> **Enterprise-Grade Real-Time IoT Telemetry Pipeline & Analytics Dashboard**
+![Thumbnail](docs/assets/thumbnail.png)
 
-![License](https://img.shields.io/badge/License-MIT-blue.svg)
-![Status](https://img.shields.io/badge/Status-Production%20Ready-success)
-![Stack](https://img.shields.io/badge/Stack-Node.js%20%7C%20Kafka%20%7C%20ClickHouse%20%7C%20Next.js-333333)
+## Enterprise-Grade Real-Time IoT Telemetry Pipeline & Analytics
 
-**Lakehouse Pro** is a high-throughput, fault-tolerant telemetry pipeline designed to ingest, process, and visualize IoT sensor data in real-time. It leverages the **Medallion Architecture** to separate raw ingestion from enriched analytics, capable of handling 100k+ events/sec.
+<div align="center">
 
-![Hero Image](./docs/assets/hero_main.png)
+![Status](https://img.shields.io/badge/Status-Production_Ready-success?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
+![Pattern](https://img.shields.io/badge/Architecture-Medallion_Lakehouse-FF4B11?style=for-the-badge&logo=apachekafka&logoColor=white)
+
+</div>
+
+**Lakehouse Pro** is a high-throughput, fault-tolerant telemetry pipeline designed to ingest, process, and visualize IoT sensor data in real-time. It leverages the **Medallion Architecture** (Bronze, Silver, Gold) to separate raw ingestion from enriched analytics, capable of handling **100k+ events/sec** with sub-second query latency.
 
 ---
 
-## ⚡ Quick Start
+## 🚀 Quick Start
 
-Get the entire stack running in under 2 minutes.
+Launch the entire stack (Kafka + ClickHouse + Ingestion + Dashboard) in one command:
 
-### 1. Start Infrastructure
 ```bash
+# 1. Start Infrastructure
 docker-compose up -d --build
-```
 
-### 2. Start Dashboard
-```bash
-cd dashboard && npm run dev
-```
-
-### 3. Generate Traffic
-```bash
+# 2. Generate Simulated Traffic
 # In a new terminal
 cd backend && npm run simulate
 ```
 
-> 🟢 **Access Dashboard**: [http://localhost:3000](http://localhost:3000)  
-> 🔵 **Kafka UI**: [http://localhost:8086](http://localhost:8086)  
-> 🟡 **ClickHouse UI**: [http://localhost:5521](http://localhost:5521) (Connect to Port 8124)
+> **Detailed Setup**: See [GETTING_STARTED.md](./docs/GETTING_STARTED.md).
 
 ---
 
-## 📸 Project Visuals
+## 📸 Demo & Architecture
 
-| **Real-Time Dashboard** | **System Workflow** |
-| :---: | :---: |
-| ![Dashboard](./docs/assets/dashboard.png) | ![Workflow](./docs/assets/workflow.png) |
+### Real-Time IoT Dashboard
+![Dashboard](docs/assets/dashboard.png)
+*Visualizing 100k+ events with sub-second OLAP query performance.*
 
----
+### System Architecture
+![Architecture](docs/assets/architecture.png)
+*Medallion Architecture: Ingestion -> Kafka (Buffer) -> ClickHouse (OLAP).*
 
-## 🌟 Key Features
+### Data Flow Workflow
+![Workflow](docs/assets/workflow.png)
+*Unidirectional pipeline: Sensor -> Node.js -> Kafka -> Transformation -> Analytics.*
 
-*   **🚀 Ultra-High Throughput**: Node.js/Kafka ingestion layer handling massive concurrency.
-*   **📊 Sub-Second Analytics**: ClickHouse OLAP storage for instant aggregations over millions of rows.
-*   **🛡️ Fault Tolerance**: Persistent buffering with Kafka ensures zero data loss during DB downtime.
-*   **💎 Medallion Architecture**: Bronze (Raw), Silver (Valid), and Gold (Aggregated) data layers.
-*   **🎨 Premium UI/UX**: Glassmorphism, Vortex animations, and responsive Aceternity UI components.
-
----
-
-## 🏗️ System Architecture
-
-![Architecture](./docs/assets/architecture.png)
-
-The system follows a strict **Unidirectional Data Flow**:
-1.  **Ingestion**: `Express` receives POST requests & validates schema.
-2.  **Buffering**: `Kafka` decouples ingestion from storage (Shock Absorber).
-3.  **Processing**: Consumer service writes clean execution batches to `ClickHouse`.
-4.  **Presentation**: `Next.js` polls aggregated data for real-time visualization.
+> **Deep Dive**: See [ARCHITECTURE.md](./docs/ARCHITECTURE.md) for the Schema and Medallion logic.
 
 ---
 
-## 🧪 Testing & Verification
+## ✨ Key Features
 
-### Run Unit Tests
-```bash
-cd backend
-npm test
-```
+*   **🚀 Ultra-High Throughput**: Node.js/Kafka ingestion layer designed for massive concurrency.
+*   **📊 Sub-Second Analytics**: **ClickHouse** columnar storage for instant aggregations over millions of rows.
+*   **🛡️ Fault Tolerance**: Persistent buffering with Kafka ensures **Zero Data Loss** during DB maintenance.
+*   **💎 Medallion Strategy**: Logical separation of data into Bronze (Raw), Silver (Filtered), and Gold (Aggregated).
+*   **🎨 Premium UI/UX**: Built with Next.js 14, Aceternity UI, and Vortex animations.
 
-### Chaos Testing
-Refer to [Failure Scenarios](./docs/FAILURE_SCENARIOS.md) for network partition handling.
+---
+
+## 🏗️ The Protective Journey
+
+How data flows through the distributed system:
+
+1.  **Ingest**: The Ingestion Gateway receives telemetry via HTTP POST.
+2.  **Buffer**: Data is published to a Kafka topic, acting as a "Shock Absorber".
+3.  **Process**: The Stream Processor (Bronze to Silver) validates and cleans the data.
+4.  **Aggregate**: Materialized views in ClickHouse (Gold) prepare data for the UI.
+5.  **Visualize**: The Next.js dashboard polls the Gold layer for real-time insights.
 
 ---
 
 ## 📚 Documentation
 
-Detailed diagrams and decision logs are available in the `docs/` directory:
-
-*   [**📂 Architecture Deep Dive**](./docs/ARCHITECTURE.md) - HLD, LLD, and Schema Definitions.
-*   [**🛠️ Getting Started Guide**](./docs/GETTING_STARTED.md) - Detailed setup and prerequisites.
-*   [**⚔️ Failure Scenarios**](./docs/FAILURE_SCENARIOS.md) - How we handle crashes and outages.
-*   [**🎙️ Interview Q&A**](./docs/INTERVIEW_QA.md) - "Why ClickHouse?", "Why Node.js?", etc.
+| Document | Description |
+| :--- | :--- |
+| [**System Architecture**](./docs/ARCHITECTURE.md) | HLD, LLD, ClickHouse Schema, and Medallion logic. |
+| [**Getting Started**](./docs/GETTING_STARTED.md) | Setup guide, Docker environment, and Simulation scripts. |
+| [**Failure Scenarios**](./docs/FAILURE_SCENARIOS.md) | Kafka partitions, DB recovery, and Circuit breakers. |
+| [**Interview Q&A**](./docs/INTERVIEW_QA.md) | "Why ClickHouse?", "Why Kafka?", and "Medallion vs Vault". |
 
 ---
 
-## 🛠️ Technology Stack
+## 🔧 Tech Stack
 
 | Component | Technology | Role |
 | :--- | :--- | :--- |
-| **Ingestion** | Node.js v20 (Express) | High-performance API Gateway |
-| **Queue** | Apache Kafka 7.5 | Durable Message Broker |
-| **Storage** | ClickHouse 23.8 | Columnar OLAP Database |
-| **Frontend** | Next.js 14 (App Router) | SSR & Client-side Polling |
-| **Styling** | TailwindCSS + Aceternity | Modern Responsive Design |
-| **DevOps** | Docker Compose | Container Orchestration |
-
----
-
-## 🔮 Future Enhancements
-
-*   **Authentication**: Implementing JWT/OIDC for secure API access.
-*   **gRPC Support**: Moving internal communication to Protobufs for lower latency.
-*   **Alerting**: Prometheus/Grafana integration for system monitoring.
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+| **Ingestion** | **Node.js (Express)** | High-performance API Gateway. |
+| **Messaging** | **Apache Kafka** | Durable Event Streaming. |
+| **Storage** | **ClickHouse** | Columnar OLAP Database. |
+| **Frontend** | **Next.js 14** | Modern Real-time Analytics UI. |
 
 ---
 
@@ -129,3 +105,9 @@ Voice AI • Distributed Systems • Infrastructure
 [![GitHub](https://img.shields.io/badge/GitHub-Kimosabey-black?style=flat&logo=github)](https://github.com/Kimosabey)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Harshan_Aiyappa-blue?style=flat&logo=linkedin)](https://linkedin.com/in/harshan-aiyappa)
 [![X](https://img.shields.io/badge/X-@HarshanAiyappa-black?style=flat&logo=x)](https://x.com/HarshanAiyappa)
+
+---
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
