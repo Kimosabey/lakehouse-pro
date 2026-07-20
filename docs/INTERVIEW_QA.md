@@ -18,7 +18,7 @@
 
 ---
 
-## 3. The "Senior Signal"
+## 3. Technical Deep Dive
 > **Q: "What was the hardest challenge?"**
 
 **A:** "The hardest part was implementing **Backpressure** and handling **Network Partitions**. Initially, if ClickHouse slowed down, the Kafka Consumer would keep refreshing metadata and crashing. I had to tune the `heartbeat.interval.ms` and `session.timeout.ms` in KafkaJS to ensure the consumer remained stable during heavy processing loads, effectively decoupling the ingestion rate from the processing rate."
